@@ -23,12 +23,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Route::get('/carousel', [CarouselItemsController::class, 'index']);
 
-Route::get('/carousel/{id}', [CarouselItemsController::class, 'show']);
+//Route::get('/carousel/{id}', [CarouselItemsController::class, 'show']);
 
-Route::delete('/carousel/{id}', [CarouselItemsController::class, 'destroy']);
+//Route::delete('/carousel/{id}', [CarouselItemsController::class, 'destroy']);
 
-Route::post('/carousel', [CarouselItemsController::class, 'store']);
+//Route::post('/carousel', [CarouselItemsController::class, 'store']);
 
 Route::put('/carousel/{id}', [CarouselItemsController::class,'update']);
 
 Route::get('/bookings', [BookingsController::class, 'index']);
+
+Route::delete('/bookings/{id}', [BookingsController::class, 'destroy']);
+
+Route::post('/bookings', [BookingsController::class, 'store']);
+
+Route::get('/bookings/{id}', [BookingsController::class, 'show']);
+
+Route::put('/bookings/{id}', [BookingsController::class, 'update']);
+
+
+
+

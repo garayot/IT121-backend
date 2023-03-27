@@ -21,32 +21,46 @@ class BookingsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(bookingsRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $bookings = bookings::create($validated);
+
+        return $bookings;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(bookings $bookings)
+    public function show(string $id)
     {
-        //
+        return bookings::findOrFail($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, bookings $bookings)
+    public function update(bookingsRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+        
+        $bookings = bookings ::findOrFail($id);
+        $bookings ->update($validated);
+
+      return $bookings; 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(bookings $bookings)
+    public function destroy(string $id)
     {
-        //
+        $bookings = bookings::findOrFail($id);
+ 
+        $bookings->delete();
+
+        return $bookings;
+
     }
 }

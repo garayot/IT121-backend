@@ -22,9 +22,9 @@ class bookingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'booking_name' => 'string|max:255',
-            'booking_description'    => 'string|max:255',
-            'user_id'       => 'required|integer',
+            'booking_name'          => 'string|max:255',
+            'booking_description'   => 'string|nullable|max:255',
+            'user_id'               => 'required|integer',
         ];
     }
 }

@@ -4,6 +4,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CarouselItemsController;
+use App\Http\Controllers\API\BookingsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/carousel', [CarouselItemsController::class, 'index']);
+//Route::get('/carousel', [CarouselItemsController::class, 'index']);
 
 Route::get('/carousel/{id}', [CarouselItemsController::class, 'show']);
 
@@ -29,3 +30,5 @@ Route::delete('/carousel/{id}', [CarouselItemsController::class, 'destroy']);
 Route::post('/carousel', [CarouselItemsController::class, 'store']);
 
 Route::put('/carousel/{id}', [CarouselItemsController::class,'update']);
+
+Route::get('/bookings', [BookingsController::class, 'index']);

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
-            $table->id('bookings_id');
-            $table->string('booking_name');
-            $table->string('booking_description')->nullable();
+        Schema::create('UserResource', function (Blueprint $table) {
+            $table->id('users_id');
+            $table->string('user_name');
+            $table->string('user_description')->nullable();
             $table->timestamps();
         });   
-        Schema::table('bookings', function (Blueprint $table) {
+        Schema::table('UserResource', function (Blueprint $table) {
             // Check if the column exists before adding it
             
                 $table->unsignedBigInteger('user_id');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('UserResource');
     }
 };

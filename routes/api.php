@@ -43,7 +43,10 @@ Route::post('/users', [UsersController::class, 'store'])->name('user.store');
 
 Route::put('/users/{id}', [UsersController::class, 'update'])->name('user.update');
 
-Route::put('/users/{id}', [UsersController::class, 'email']);
+Route::put('/users/{id}', [UsersController::class, 'email'])->name('user.email'); 
+
+Route::put('/users/{id}', [UsersController::class, 'password'])->name('user.password'); 
+
 
 
 

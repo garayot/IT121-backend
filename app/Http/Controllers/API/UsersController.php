@@ -64,31 +64,33 @@ class UsersController extends Controller
 
         return $user; 
     }
-     /**
-     * Update the email of the specified resource in storage.
-     */
+    //  /**
+    //  * Update the email of the specified resource in storage.
+    //  */
     public function email(UserRequest $request, string $id)
     {
-        //
-        $validated = $request->validated();
         
         $user = User ::findOrFail($id);
-        $user ->update($validated);
+        $validated = $request->validated();
 
-      return $user; 
+        $user -> email = $validated['email'];
+        $user ->save();
+
+        return $user; 
     }
-     /**
-     * Update the password of the specified resource in storage.
-     */
+    //  /**
+    //  * Update the password of the specified resource in storage.
+    //  */
     public function password(UserRequest $request, string $id)
     {
         //
-        $validated = $request->validated();
-        
         $user = User ::findOrFail($id);
-        $user ->update($validated);
+        $validated = $request->validated();
 
-      return $user; 
+        $user -> password = Hash::make($validated['password']);
+        $user ->save();
+
+        return $user; 
     }
 
     /**

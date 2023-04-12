@@ -29,12 +29,24 @@ Route::get('/carousel', [CarouselItemsController::class, 'index']);
 
  Route::post('/carousel', [CarouselItemsController::class, 'store']);
 
+ Route::put('/carousel/{id}', [CarouselItemsController::class, 'update']);
+ 
 
-Route::get('/carousel', [UsersController::class, 'index']);
 
-Route::delete('/carousel/{id}', [UsersController::class, 'destroy']);
+Route::get('/users', [UsersController::class, 'index']);
 
-Route::get('/carousel/{id}', [UsersController::class, 'show']);
+Route::delete('/users/{id}', [UsersController::class, 'destroy']);
+
+Route::get('/users/{id}', [UsersController::class, 'show']);
+
+Route::post('/users', [UsersController::class, 'store'])->name('user.store');
+
+Route::put('/users/{id}', [UsersController::class, 'update'])->name('user.update');
+
+Route::put('/users/{id}', [UsersController::class, 'email']);
+
+
+
 
 
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
 use App\Models\CarouselItems;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CarouselItemsRequest;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -14,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return CarouselItems::all();
+        return User::all();
 
     }
 
@@ -22,15 +25,17 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CarouselItemsRequest $request)
+    public function store(UserRequest $request)
     {
         //
         // Retrieve the validated input data...
         $validated = $request->validated();
-        
-        $carouselItem = CarouselItems::create($validated);
 
-        return $carouselItem;
+        $validated ['password'] = Hash::make($validated['password']);
+        
+        $user = User::create($validated);
+
+        return $user;
         
     }
 
@@ -40,22 +45,50 @@ class UsersController extends Controller
     public function show(string $id)
     {
         //
-        return CarouselItems::findOrFail($id);
+        return User::findOrFail($id);
         
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CarouselItemsRequest $request, string $id)
+    public function update(UserRequest $request, string $id)
+    {
+        //
+        
+        $user = User ::findOrFail($id);
+        $validated = $request->validated();
+
+        $user -> name = $validated['name'];
+        $user ->save();
+
+        return $user; 
+    }
+     /**
+     * Update the email of the specified resource in storage.
+     */
+    public function email(UserRequest $request, string $id)
     {
         //
         $validated = $request->validated();
         
-        $carouselItem = CarouselItems ::findOrFail($id);
-        $carouselItem ->update($validated);
+        $user = User ::findOrFail($id);
+        $user ->update($validated);
 
-      return $carouselItem; 
+      return $user; 
+    }
+     /**
+     * Update the password of the specified resource in storage.
+     */
+    public function password(UserRequest $request, string $id)
+    {
+        //
+        $validated = $request->validated();
+        
+        $user = User ::findOrFail($id);
+        $user ->update($validated);
+
+      return $user; 
     }
 
     /**
@@ -63,10 +96,10 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        $carouselItem = CarouselItems::findOrFail($id);
+        $user = User::findOrFail($id);
  
-        $carouselItem->delete();
+        $user->delete();
 
-        return $carouselItem;
+        return $user;
     }
 }

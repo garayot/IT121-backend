@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CarouselItemsController;
 use App\Http\Controllers\API\UsersController;
+use App\Http\Controllers\API\MessageController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,6 +48,15 @@ Route::put('/users/{id}', [UsersController::class, 'update'])->name('user.update
 Route::put('/users/{id}', [UsersController::class, 'email'])->name('user.email'); 
 
 Route::put('/users/{id}', [UsersController::class, 'password'])->name('user.password'); 
+
+
+Route::post('/message', [messageController::class, 'store']);
+
+Route::delete('/message/{id}', [messageController::class, 'destroy']);
+
+
+
+
 
 
 

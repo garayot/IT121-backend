@@ -16,7 +16,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        return Messages::all();
     }
 
     /**
@@ -44,7 +44,7 @@ class MessageController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Messages::findOrFail($id);
     }
 
     /**
@@ -58,9 +58,14 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(messageRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+
+        $message = Messages::findOrFail($id);
+        $message -> update($validated);
+
+        return $message; 
     }
 
     /**

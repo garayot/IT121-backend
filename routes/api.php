@@ -54,6 +54,15 @@ Route::post('/message', [messageController::class, 'store']);
 
 Route::delete('/message/{id}', [messageController::class, 'destroy']);
 
+Route::get('/message', [messageController::class, 'index']);
+
+Route::get('/message/{id}', [messageController::class, 'show']);
+
+Route::put('/message/{id}', [messageController::class, 'update']);
+
+
+
+
 
 
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CarouselItemsController;
 use App\Http\Controllers\API\UsersController;
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,48 +19,43 @@ use App\Http\Controllers\API\MessageController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/login', 'login')->name('user.login');
+    Route::post('/logout', 'logout'); 
 });
 
 
-Route::get('/carousel', [CarouselItemsController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 
- Route::get('/carousel/{id}', [CarouselItemsController::class, 'show']);
+});
+Route::controller(CarouselItemsController::class)->group(function () { 
+    Route::get('/carousel', 'index');
+    Route::get('/carousel/{id}', 'show');
+    Route::delete('/carousel/{id}','destroy');
+    Route::post('/carousel', 'store');
+    Route::put('/carousel/{id}', 'update');
+});
 
- Route::delete('/carousel/{id}', [CarouselItemsController::class, 'destroy']);
-
- Route::post('/carousel', [CarouselItemsController::class, 'store']);
-
- Route::put('/carousel/{id}', [CarouselItemsController::class, 'update']);
  
+Route::controller(UsersController::class)->group(function () { 
+    Route::get('/users', 'index');
+    Route::delete('/users/{id}', 'destroy');
+    Route::get('/users/{id}', 'show');
+    Route::post('/users', 'store')->name('user.store');  
+    Route::put('/users/{id}', 'update')->name('user.update');  
+    Route::put('/users/{id}', 'email')->name('user.email');   
+    Route::put('/users/{id}', 'password')->name('user.password'); 
+});
 
-
-Route::get('/users', [UsersController::class, 'index']);
-
-Route::delete('/users/{id}', [UsersController::class, 'destroy']);
-
-Route::get('/users/{id}', [UsersController::class, 'show']);
-
-Route::post('/users', [UsersController::class, 'store'])->name('user.store');
-
-Route::put('/users/{id}', [UsersController::class, 'update'])->name('user.update');
-
-Route::put('/users/{id}', [UsersController::class, 'email'])->name('user.email'); 
-
-Route::put('/users/{id}', [UsersController::class, 'password'])->name('user.password'); 
-
-
-Route::post('/message', [messageController::class, 'store']);
-
-Route::delete('/message/{id}', [messageController::class, 'destroy']);
-
-Route::get('/message', [messageController::class, 'index']);
-
-Route::get('/message/{id}', [messageController::class, 'show']);
-
-Route::put('/message/{id}', [messageController::class, 'update']);
-
+Route::controller(MessagesController::class)->group(function () { 
+   
+    Route::post('/message','store');
+    Route::delete('/message/{id}','destroy');
+    Route::get('/message','index');
+    Route::get('/message/{id}','show');
+    Route::put('/message/{id}','update');
+});
 
 
 

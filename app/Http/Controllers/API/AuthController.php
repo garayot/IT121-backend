@@ -35,10 +35,16 @@ class AuthController extends Controller
         return $response;
     }
 
-    public function logout(UserRequest $request)
+    public function logout(Request $request)
     {
         //return User::findOrFail($id);
-        return false;
+        $request->user()->tokens()->delete();
+
+        $response = [
+            'user'  => 'Logout.'
+        ];
+
+        return $response;
 
     }
 

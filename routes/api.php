@@ -19,34 +19,36 @@ use App\Http\Controllers\API\AuthController;
 |
 */
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/login', 'login')->name('user.login');
-    Route::post('/logout', 'logout'); 
-});
+
+Route::post('/login', [AuthController::class, 'login'])->name('user.login');
+Route::post('/user', [UsersController::class, 'store'])->name('user.store');
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 
-});
-Route::controller(CarouselItemsController::class)->group(function () { 
-    Route::get('/carousel', 'index');
-    Route::get('/carousel/{id}', 'show');
-    Route::delete('/carousel/{id}','destroy');
-    Route::post('/carousel', 'store');
-    Route::put('/carousel/{id}', 'update');
-});
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']); 
 
- 
-Route::controller(UsersController::class)->group(function () { 
-    Route::get('/users', 'index');
-    Route::delete('/users/{id}', 'destroy');
-    Route::get('/users/{id}', 'show');
-    Route::post('/users', 'store')->name('user.store');  
-    Route::put('/users/{id}', 'update')->name('user.update');  
-    Route::put('/users/{id}', 'email')->name('user.email');   
-    Route::put('/users/{id}', 'password')->name('user.password'); 
-});
+    Route::controller(CarouselItemsController::class)->group(function () { 
+        Route::get('/carousel', 'index');
+        Route::get('/carousel/{id}', 'show');
+        Route::delete('/carousel/{id}','destroy');
+        Route::post('/carousel', 'store');
+        Route::put('/carousel/{id}', 'update');
+    });
+    Route::controller(UsersController::class)->group(function () { 
+        Route::get('/user', 'index');
+        Route::delete('/user/{id}', 'destroy');
+        Route::get('/user/{id}', 'show');
+        Route::post('/user', 'store')->name('user.store');  
+        Route::put('/user/{id}', 'update')->name('user.update');  
+        Route::put('/user/{id}', 'email')->name('user.email');   
+        Route::put('/user/{id}', 'password')->name('user.password'); 
+    });
+
+});    
+
+
+
 
 Route::controller(MessagesController::class)->group(function () { 
    

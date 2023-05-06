@@ -8,6 +8,7 @@ use App\Http\Controllers\API\UsersController;
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\AIController;
 
 
 /*
@@ -25,6 +26,8 @@ use App\Http\Controllers\API\ProfileController;
 Route::post('/login', [AuthController::class, 'login'])->name('user.login');
 Route::post('/user', [UsersController::class, 'store'])->name('user.store');
 
+//OCR API
+Route::post('/ocr', [AIController::class,'ocr'])->name('ocr.image');
 
 // Private APIs
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -52,8 +55,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //User Specific API
          Route::put('/profile/image', [ProfileController::class,'image'])->name('profile.image'); 
          Route::get('/profile/show', [ProfileController::class,'show']);
-
-
+    
+    
 
 });    
 

@@ -24,7 +24,7 @@ class PromptRequest extends FormRequest
         return [
             'tools_type'   => 'required|string|max:255',
             'text'    => 'required|string|max:255',
-            'result'    => 'required|string|max:255',
+            'result'    => 'required|string',
         ];
     }
 }
